@@ -1,0 +1,1962 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JC Analytics — Propuesta de Servicios para FinaTec Contable</title>
+  <meta name="description" content="Propuesta progresiva de servicios de marketing digital para FinaTec Contable: gestión de redes sociales, Google Ads y desarrollo web." />
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1a2e;
+      --card2:#121f38;
+      --text:#eaf0ff;
+      --muted:#b9c4e3;
+      --line:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#7cffd8;
+      --warn:#ffd37a;
+      --danger:#ff7a7a;
+      --ok:#7cff8e;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius: 18px;
+      --gradient-primary: linear-gradient(135deg, #7aa2ff 0%, #7cffd8 100%);
+      --gradient-warm: linear-gradient(135deg, #ffd37a 0%, #ff9a7a 100%);
+      --gradient-cool: linear-gradient(135deg, #a17aff 0%, #7aa2ff 100%);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .7; transform: scale(1.05); }
+    }
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: radial-gradient(1200px 700px at 15% 10%, rgba(122,162,255,.18), transparent 60%),
+                  radial-gradient(900px 600px at 85% 10%, rgba(124,255,216,.12), transparent 55%),
+                  radial-gradient(1200px 900px at 50% 110%, rgba(255,211,122,.10), transparent 65%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1100px; margin:0 auto; padding:32px 20px 80px}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 18px; border:1px solid var(--line);
+      background:rgba(15,26,46,.65);
+      backdrop-filter: blur(10px);
+      border-radius: 14px;
+      position: sticky; top: 14px; z-index: 50;
+    }
+    .brand{
+      display:flex; gap:12px; align-items:center;
+    }
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(122,162,255,.9), rgba(124,255,216,.7));
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .brand h1{font-size:14px; margin:0; letter-spacing:.3px}
+    .brand p{margin:0; font-size:12px; color:var(--muted)}
+    .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:600;
+      cursor:pointer;
+      transition: transform .08s ease, background .12s ease;
+      user-select:none;
+    }
+    .btn:hover{background:rgba(255,255,255,.07)}
+    .btn:active{transform: translateY(1px)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(122,162,255,.95), rgba(124,255,216,.75));
+      color:#0a1020;
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn.primary::before{
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);
+      animation: shimmer 2.5s infinite;
+    }
+    @keyframes shimmer{
+      0%{ left: -100%; }
+      50%, 100%{ left: 100%; }
+    }
+    .hero{
+      margin-top:22px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(15,26,46,.72), rgba(15,26,46,.35));
+      box-shadow: var(--shadow);
+      padding: 26px 22px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 240px at 15% 0%, rgba(122,162,255,.25), transparent 55%),
+                  radial-gradient(700px 240px at 85% 0%, rgba(124,255,216,.15), transparent 60%);
+      pointer-events:none;
+    }
+    .hero .grid{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size:12px; color: var(--muted);
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:999px;
+      width:fit-content;
+      margin-bottom:12px;
+    }
+    .kicker .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--accent2);
+      box-shadow: 0 0 0 3px rgba(124,255,216,.15);
+    }
+    .hero h2{
+      margin:0 0 10px;
+      font-size: 28px;
+      line-height:1.15;
+      letter-spacing:.2px;
+    }
+    .hero p{margin: 0 0 12px; color: var(--muted)}
+    .hero .meta{
+      display:flex; gap: 10px; flex-wrap:wrap; margin-top: 14px;
+    }
+    .pill{
+      font-size:12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      padding: 7px 10px;
+      border-radius: 999px;
+    }
+    .summary{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      padding: 14px 14px;
+    }
+    .summary h3{margin:0 0 8px; font-size:14px}
+    .summary .line{
+      display:flex; justify-content:space-between; gap:10px;
+      padding: 8px 0; border-top:1px solid var(--line);
+      font-size:13px;
+    }
+    .summary .line:first-of-type{border-top:0}
+    .summary .label{color:var(--muted)}
+    .summary .value{font-weight:700}
+    .section{
+      margin-top: 18px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(15,26,46,.55);
+      box-shadow: 0 18px 55px rgba(0,0,0,.25);
+      padding: 18px;
+    }
+    .section h3{
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .section p{margin:0 0 12px; color:var(--muted)}
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+    .card{
+      grid-column: span 6;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 100%;
+    }
+    .card.full{grid-column: span 12}
+    .card h4{
+      margin: 0 0 6px;
+      font-size: 14px;
+    }
+    .card p{margin:0 0 10px; color:var(--muted); font-size:13px}
+    ul.clean{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    ul.clean li{margin: 6px 0}
+    .price{
+      display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top:1px solid var(--line);
+    }
+    .price .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+    }
+    .price .amount{
+      font-size: 18px; font-weight: 900; letter-spacing:.2px;
+    }
+    .note{
+      font-size: 12px; color: var(--muted);
+      border-left: 3px solid rgba(122,162,255,.65);
+      padding-left: 10px;
+      margin-top: 10px;
+    }
+    .accordion{
+      display:grid; gap:10px;
+    }
+    details{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight: 800;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    summary::-webkit-details-marker{display:none}
+    summary span.small{
+      font-size: 12px; color: var(--muted);
+      font-weight: 600;
+    }
+    .badge{
+      font-size:12px; font-weight:800;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      white-space:nowrap;
+    }
+    .badge.ok{border-color: rgba(124,255,142,.35); background: rgba(124,255,142,.10)}
+    .badge.warn{border-color: rgba(255,211,122,.35); background: rgba(255,211,122,.10)}
+    .badge.danger{border-color: rgba(255,122,122,.35); background: rgba(255,122,122,.10)}
+    .cols{
+      display:grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      margin-top: 10px;
+    }
+    .mini{
+      border:1px solid var(--line);
+      background: rgba(15,26,46,.35);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .mini h5{margin:0 0 8px; font-size: 13px}
+    .mini p{margin:0; font-size:12px; color: var(--muted)}
+    .footer{
+      margin-top: 18px;
+      border:1px solid var(--line);
+      background: rgba(15,26,46,.55);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .footer .cta{
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+    }
+    .footer h3{margin:0 0 6px}
+    .footer p{margin:0; color: var(--muted)}
+    .divider{height:1px; background: var(--line); margin: 14px 0}
+    .smallprint{font-size:12px; color: var(--muted)}
+    .muted{color:var(--muted)}
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .kv{
+      display:grid;
+      grid-template-columns: 150px 1fr;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      border-top:1px solid var(--line);
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+    .kv:first-of-type{border-top:0; padding-top:0; margin-top:0}
+    .kv b{color: var(--text)}
+    
+    /* === ICONOS Y GRÁFICOS === */
+    .icon{
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--gradient-primary);
+      box-shadow: 0 8px 24px rgba(122,162,255,.25);
+      margin-bottom: 12px;
+      animation: float 4s ease-in-out infinite;
+    }
+    .icon svg{ width: 24px; height: 24px; stroke: #0a1020; stroke-width: 2; fill: none; }
+    .icon.warn{ background: var(--gradient-warm); box-shadow: 0 8px 24px rgba(255,211,122,.25); }
+    .icon.cool{ background: var(--gradient-cool); box-shadow: 0 8px 24px rgba(161,122,255,.25); }
+    .icon.small{ width: 36px; height: 36px; border-radius: 10px; }
+    .icon.small svg{ width: 18px; height: 18px; }
+    
+    /* === STAT CARDS === */
+    .stats-grid{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .stat-card{
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp .5s ease both;
+    }
+    .stat-card::before{
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gradient-primary);
+    }
+    .stat-card.warn::before{ background: var(--gradient-warm); }
+    .stat-card.cool::before{ background: var(--gradient-cool); }
+    .stat-number{
+      font-size: 28px;
+      font-weight: 900;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: countUp .8s ease both;
+    }
+    .stat-card.warn .stat-number{ background: var(--gradient-warm); -webkit-background-clip: text; background-clip: text; }
+    .stat-card.cool .stat-number{ background: var(--gradient-cool); -webkit-background-clip: text; background-clip: text; }
+    .stat-label{ font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-top: 4px; }
+    
+    /* === TIMELINE === */
+    .timeline{
+      position: relative;
+      padding-left: 32px;
+      margin: 16px 0;
+    }
+    .timeline::before{
+      content: '';
+      position: absolute;
+      left: 11px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+    }
+    .timeline-item{
+      position: relative;
+      padding: 12px 0;
+      animation: fadeInUp .5s ease both;
+    }
+    .timeline-item::before{
+      content: '';
+      position: absolute;
+      left: -26px; top: 18px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 0 3px rgba(122,162,255,.3);
+    }
+    .timeline-item.active::before{
+      background: var(--accent2);
+      box-shadow: 0 0 0 3px rgba(124,255,216,.3), 0 0 20px rgba(124,255,216,.4);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .timeline-title{ font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+    .timeline-desc{ font-size: 12px; color: var(--muted); }
+    
+    /* === PROGRESS BAR === */
+    .progress-container{
+      background: rgba(255,255,255,.05);
+      border-radius: 10px;
+      padding: 3px;
+      margin: 12px 0;
+    }
+    .progress-bar{
+      height: 8px;
+      border-radius: 8px;
+      background: var(--gradient-primary);
+      background-size: 200% 200%;
+      animation: gradient-shift 3s ease infinite;
+      transition: width .8s ease;
+    }
+    
+    /* === FEATURE LIST === */
+    .feature-list{
+      display: grid;
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .feature-item{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 13px;
+      transition: all .2s ease;
+    }
+    .feature-item:hover{
+      background: rgba(255,255,255,.05);
+      border-color: rgba(122,162,255,.3);
+      transform: translateX(4px);
+    }
+    .feature-icon{
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: rgba(122,162,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .feature-icon svg{ width: 14px; height: 14px; stroke: var(--accent); stroke-width: 2; fill: none; }
+    .feature-icon.ok{ background: rgba(124,255,142,.15); }
+    .feature-icon.ok svg{ stroke: var(--ok); }
+    .feature-icon.warn{ background: rgba(255,211,122,.15); }
+    .feature-icon.warn svg{ stroke: var(--warn); }
+    
+    /* === FLOATING SHAPES === */
+    .floating-shapes{
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .shape{
+      position: absolute;
+      border-radius: 50%;
+      opacity: .08;
+      filter: blur(40px);
+    }
+    .shape-1{ width: 300px; height: 300px; background: var(--accent); top: -100px; right: -50px; animation: float 8s ease-in-out infinite; }
+    .shape-2{ width: 200px; height: 200px; background: var(--accent2); bottom: -80px; left: -60px; animation: float 6s ease-in-out infinite reverse; }
+    .shape-3{ width: 150px; height: 150px; background: var(--warn); top: 50%; right: 20%; animation: float 10s ease-in-out infinite; }
+    
+    /* === CARD ENHANCEMENTS === */
+    .card{ transition: all .3s ease; position: relative; overflow: hidden; }
+    .card:hover{ transform: translateY(-4px); border-color: rgba(122,162,255,.25); box-shadow: 0 20px 40px rgba(0,0,0,.2); }
+    .card-glow{
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 80px;
+      background: linear-gradient(180deg, rgba(122,162,255,.08), transparent);
+      pointer-events: none;
+    }
+    
+    /* === RIBBON === */
+    .ribbon{
+      position: absolute;
+      top: 16px; right: -35px;
+      background: var(--gradient-primary);
+      color: #0a1020;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 4px 40px;
+      transform: rotate(45deg);
+      letter-spacing: .5px;
+    }
+    
+    /* === COMPARISON TABLE === */
+    .comparison{
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2px;
+      background: var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 16px 0;
+    }
+    .comparison-cell{
+      background: rgba(15,26,46,.9);
+      padding: 12px;
+      font-size: 12px;
+    }
+    .comparison-header{
+      background: rgba(122,162,255,.1);
+      font-weight: 700;
+      text-align: center;
+    }
+    .comparison-feature{ color: var(--muted); }
+    .comparison-check{
+      text-align: center;
+      color: var(--ok);
+    }
+    .comparison-x{
+      text-align: center;
+      color: var(--muted);
+      opacity: .4;
+    }
+    
+    @media (max-width: 920px){
+      .hero .grid{grid-template-columns: 1fr}
+      .card{grid-column: span 12}
+      .cols{grid-template-columns: 1fr}
+      .grid2{grid-template-columns: 1fr}
+      .stats-grid{grid-template-columns: repeat(2, 1fr)}
+      .comparison{grid-template-columns: 1fr}
+      .comparison-cell:not(.comparison-feature){text-align: left}
+    }
+    @media print{
+      .topbar{position:static}
+      .btn{display:none}
+      body{background:#ffffff; color:#111}
+      .hero,.section,.footer{box-shadow:none; background:#fff; border-color:#ddd}
+      .summary,.card,details,.mini{background:#fff; border-color:#ddd}
+      .muted,.section p, .card p, ul.clean, .smallprint{color:#333}
+      a{color:#111; text-decoration:underline}
+    }
+    
+    /* === PREMIUM ENHANCEMENTS === */
+    .premium-badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, rgba(255,215,0,.2), rgba(255,180,50,.15));
+      border: 1px solid rgba(255,215,0,.3);
+      color: #ffd700;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .premium-badge svg{ width: 14px; height: 14px; stroke: currentColor; fill: none; }
+    
+    /* === VALUE PROPOSITION === */
+    .value-prop{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .value-item{
+      text-align: center;
+      padding: 24px 16px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      transition: all .3s ease;
+    }
+    .value-item:hover{
+      background: rgba(122,162,255,.05);
+      border-color: rgba(122,162,255,.2);
+      transform: translateY(-4px);
+    }
+    .value-icon{
+      width: 56px; height: 56px;
+      margin: 0 auto 14px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gradient-primary);
+      box-shadow: 0 10px 30px rgba(122,162,255,.3);
+    }
+    .value-icon svg{ width: 28px; height: 28px; stroke: #0a1020; stroke-width: 2; fill: none; }
+    .value-icon.warn{ background: var(--gradient-warm); box-shadow: 0 10px 30px rgba(255,211,122,.3); }
+    .value-icon.cool{ background: var(--gradient-cool); box-shadow: 0 10px 30px rgba(161,122,255,.3); }
+    .value-title{ font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .value-desc{ font-size: 12px; color: var(--muted); line-height: 1.5; }
+    
+    /* === BENEFIT HIGHLIGHT === */
+    .benefit-highlight{
+      background: linear-gradient(135deg, rgba(122,162,255,.08), rgba(124,255,216,.05));
+      border: 1px solid rgba(122,162,255,.15);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .benefit-highlight::before{
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--gradient-primary);
+    }
+    .benefit-grid{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .benefit-item{
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .benefit-check{
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: rgba(124,255,142,.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .benefit-check svg{ width: 12px; height: 12px; stroke: var(--ok); stroke-width: 3; fill: none; }
+    .benefit-text{ font-size: 13px; }
+    .benefit-text strong{ display: block; margin-bottom: 2px; }
+    .benefit-text span{ color: var(--muted); font-size: 12px; }
+    
+    /* === GUARANTEE BOX === */
+    .guarantee-box{
+      background: linear-gradient(135deg, rgba(124,255,142,.08), rgba(124,255,216,.05));
+      border: 1px solid rgba(124,255,142,.2);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .guarantee-icon{
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(124,255,142,.2), rgba(124,255,216,.15));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .guarantee-icon svg{ width: 26px; height: 26px; stroke: var(--ok); stroke-width: 2; fill: none; }
+    .guarantee-content h4{ margin: 0 0 4px; font-size: 15px; }
+    .guarantee-content p{ margin: 0; font-size: 13px; color: var(--muted); }
+    
+    /* === PROCESS STEPS === */
+    .process-steps{
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 24px 0;
+      padding: 0 20px;
+    }
+    .process-steps::before{
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 60px;
+      right: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--warn));
+    }
+    .process-step{
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .step-number{
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0 auto 10px;
+      color: var(--accent);
+    }
+    .step-number.active{
+      background: var(--gradient-primary);
+      border: none;
+      color: #0a1020;
+    }
+    .step-title{ font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+    .step-desc{ font-size: 11px; color: var(--muted); max-width: 100px; margin: 0 auto; }
+    
+    /* === TESTIMONIAL === */
+    .testimonial{
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 20px 0;
+      position: relative;
+    }
+    .testimonial::before{
+      content: '"';
+      position: absolute;
+      top: 10px; left: 20px;
+      font-size: 60px;
+      color: rgba(122,162,255,.15);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .testimonial-text{
+      font-size: 14px;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 16px;
+      padding-left: 30px;
+    }
+    .testimonial-author{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-left: 30px;
+    }
+    .testimonial-avatar{
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--gradient-cool);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #0a1020;
+    }
+    .testimonial-info strong{ display: block; font-size: 13px; }
+    .testimonial-info span{ font-size: 11px; color: var(--muted); }
+    
+    /* === ROI CALCULATOR === */
+    .roi-box{
+      background: linear-gradient(135deg, rgba(255,211,122,.08), rgba(255,154,122,.05));
+      border: 1px solid rgba(255,211,122,.2);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .roi-header{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .roi-header svg{ width: 24px; height: 24px; stroke: var(--warn); stroke-width: 2; fill: none; }
+    .roi-header h4{ margin: 0; font-size: 15px; }
+    .roi-metrics{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .roi-metric{
+      text-align: center;
+      padding: 12px;
+      background: rgba(255,255,255,.03);
+      border-radius: 12px;
+    }
+    .roi-value{
+      font-size: 22px;
+      font-weight: 800;
+      background: var(--gradient-warm);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .roi-label{ font-size: 11px; color: var(--muted); margin-top: 4px; }
+    
+    @media (max-width: 920px){
+      .value-prop{ grid-template-columns: 1fr; }
+      .benefit-grid{ grid-template-columns: 1fr; }
+      .process-steps{ flex-direction: column; gap: 20px; align-items: flex-start; padding: 0; }
+      .process-steps::before{ display: none; }
+      .roi-metrics{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Sticky header -->
+    <header class="topbar" role="banner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:#0a1020;stroke-width:2;fill:none">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div>
+          <h1>JC Analytics — Propuesta para FinaTec Contable</h1>
+          <p>Gestión de Redes Sociales + Google Ads + Web por Proyecto</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" type="button" onclick="window.print()">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none">
+            <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          Imprimir / PDF
+        </button>
+        <a class="btn primary" href="#aceptacion">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          Solicitar inicio
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" aria-label="Resumen Ejecutivo">
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+      </div>
+      <div class="grid">
+        <div>
+          <div class="kicker">
+            <span class="dot"></span> 
+            <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--accent2);stroke-width:2;fill:none">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            Propuesta progresiva (por fases) — Alcance definido + servicios extra
+          </div>
+          <h2>Gestión integral de redes sociales y adquisición de prospectos para <span class="muted">FinaTec Contable</span></h2>
+          <p>
+            Este plan está diseñado para <b>FinaTec Contable</b>, firma especializada en asesoría contable para pequeña y mediana empresa:
+            elaboración y presentación de estados financieros, cálculo y determinación de impuestos mensuales, 
+            análisis de información financiera, cuantificación de ingresos/egresos/inversiones y registro de movimientos contables.
+          </p>
+          <div class="meta">
+            <span class="pill">Cliente: <b>Leonardo Reynas — FinaTec Contable</b></span>
+            <span class="pill">Fecha: <b>07/01/2026</b></span>
+            <span class="pill">Validez: <b>15 días</b></span>
+          </div>
+        </div>
+
+        <aside class="summary" aria-label="Resumen de inversión">
+          <h3>Inversión principal</h3>
+          <div class="line">
+            <div class="label">Fase 0 (Foundations)</div>
+            <div class="value">₡100.000 (único)</div>
+          </div>
+          <div class="line">
+            <div class="label">Fase 1 (Setup)</div>
+            <div class="value">₡150.000 (único)</div>
+          </div>
+          <div class="line">
+            <div class="label">Fase 2 (Operación)</div>
+            <div class="value">₡100.000 / semana</div>
+          </div>
+          <div class="line">
+            <div class="label">Add-on Google Ads</div>
+            <div class="value">₡100.000 / mes</div>
+          </div>
+          <div class="line">
+            <div class="label">Web (proyecto)</div>
+            <div class="value">₡250.000 (único)</div>
+          </div>
+          <div class="note">
+            La inversión escala con servicios extra (más contenido, reels avanzados, campañas adicionales, etc.).
+            Todo servicio adicional se rige por alcance definido.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+      <div class="stat-card" style="animation-delay: 0.1s">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Fases Progresivas</div>
+      </div>
+      <div class="stat-card warn" style="animation-delay: 0.2s">
+        <div class="stat-number">₡100K</div>
+        <div class="stat-label">Retainer Semanal</div>
+      </div>
+      <div class="stat-card cool" style="animation-delay: 0.3s">
+        <div class="stat-number">10</div>
+        <div class="stat-label">Semanas Web</div>
+      </div>
+      <div class="stat-card" style="animation-delay: 0.4s">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Canales Sociales</div>
+      </div>
+    </div>
+
+    <!-- Premium Value Proposition -->
+    <section class="section" id="por-que-nosotros">
+      <h3>
+        <svg viewBox="0 0 24 24" style="width:24px;height:24px;stroke:var(--warn);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        ¿Por qué elegir este servicio?
+      </h3>
+      
+      <div class="value-prop">
+        <div class="value-item">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="value-title">Resultados Garantizados</div>
+          <div class="value-desc">Metodología probada con métricas claras de rendimiento semanal</div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon warn">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="value-title">Tiempo Optimizado</div>
+          <div class="value-desc">Usted se enfoca en su negocio mientras nosotros gestionamos su presencia digital</div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon cool">
+            <svg viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>
+          </div>
+          <div class="value-title">Crecimiento Escalable</div>
+          <div class="value-desc">Modelo progresivo que se adapta a sus necesidades y presupuesto</div>
+        </div>
+      </div>
+
+      <div class="benefit-highlight">
+        <h4 style="margin: 0 0 16px; font-size: 15px;">
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--accent);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          Beneficios incluidos en el servicio
+        </h4>
+        <div class="benefit-grid">
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="benefit-text">
+              <strong>Presencia profesional 24/7</strong>
+              <span>Su marca visible en 3 plataformas clave para su audiencia</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="benefit-text">
+              <strong>Contenido estratégico</strong>
+              <span>Diseñado para educar, generar confianza y convertir</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="benefit-text">
+              <strong>Comunicación directa</strong>
+              <span>Reuniones semanales y reportes de rendimiento</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="benefit-text">
+              <strong>Sin compromisos a largo plazo</strong>
+              <span>Modelo semanal flexible que se adapta a su ritmo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roi-box">
+        <div class="roi-header">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <h4>Valor estimado del servicio</h4>
+        </div>
+        <div class="roi-metrics">
+          <div class="roi-metric">
+            <div class="roi-value">8-12</div>
+            <div class="roi-label">Publicaciones mensuales</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-value">16-24</div>
+            <div class="roi-label">Stories semanales</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-value">4+</div>
+            <div class="roi-label">Reels/TikToks mensuales</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guarantee-box">
+        <div class="guarantee-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <div class="guarantee-content">
+          <h4>Compromiso de calidad</h4>
+          <p>Si no está satisfecho con el contenido entregado, trabajamos juntos para ajustarlo hasta que cumpla sus expectativas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What we sell -->
+    <section class="section" id="que-se-vende">
+      <h3>
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--accent);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        1) ¿Qué se le está vendiendo al cliente?
+      </h3>
+      <p>
+        Un servicio gestionado de presencia digital y captación: producción y publicación de contenido,
+        gestión de comunidad (mensajes/comentarios), coordinación estratégica, y ejecución/optimización de campañas pagadas
+        (cuando se contrata como add-on). Todo con límites claros para garantizar calidad, velocidad y control de costos.
+      </p>
+
+      <div class="cards" role="list">
+        <div class="card" role="listitem">
+          <div class="card-glow"></div>
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h4>Gestión de redes (operación + comunidad)</h4>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Programación y publicación en Facebook, Instagram y TikTok
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Monitoreo y respuesta en horario laboral (ventanas definidas)
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Escalamiento de consultas técnicas al responsable
+            </div>
+          </div>
+        </div>
+        <div class="card" role="listitem">
+          <div class="card-glow"></div>
+          <div class="icon warn">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <h4>Contenido (diseño + copys) con límites operables</h4>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Diseño basado en templates para consistencia
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Copys educativos/comerciales (sin promesas riesgosas)
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Flujo de revisión y aprobación acordado
+            </div>
+          </div>
+        </div>
+        <div class="card full" role="listitem">
+          <div class="card-glow"></div>
+          <div class="icon cool">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          </div>
+          <h4>Estrategia, coordinación y mejora continua</h4>
+          <p>
+            Planificación semanal, alineación con objetivos comerciales, análisis de resultados y ajustes.
+            Este componente asegura que el equipo ejecute de forma cohesionada, incluso si no existe branding formal.
+          </p>
+          <div class="progress-container">
+            <div class="progress-bar" style="width: 85%"></div>
+          </div>
+          <p class="note">El éxito se mide en consistencia, engagement y generación de prospectos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progressive plan -->
+    <section class="section" id="plan-progresivo">
+      <h3>
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--warn);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+        </svg>
+        2) Plan progresivo (cómo se implementa)
+      </h3>
+      <p>
+        Progresivo significa empezar por lo imprescindible (operación y consistencia) y luego escalar por módulos
+        (publicidad, campañas, web). Esto evita retrabajo y permite controlar inversión por etapa.
+      </p>
+
+      <div class="accordion">
+        <details>
+          <summary>
+            <span>Fase 0 — Foundations (Bases de Marketing)</span>
+            <span class="badge ok">₡100.000 único</span>
+          </summary>
+          <div class="cols">
+            <div class="mini">
+              <h5>Entregables incluidos</h5>
+              <ul class="clean">
+                <li><b>Brief operativo:</b> Servicios, público, tono y objetivos.</li>
+                <li><b>Pilares de contenido:</b> 3-5 temas clave (educación, confianza, oferta).</li>
+                <li><b>Guía de Compliance:</b> Disclaimers legales, qué no prometer.</li>
+                <li><b>Flujo de trabajo:</b> Definición de aprobaciones y tiempos.</li>
+              </ul>
+            </div>
+            <div class="mini">
+              <h5>Objetivo</h5>
+              <p>Alinear al equipo y definir las "reglas del juego" antes de publicar, para evitar riesgos legales y retrabajos.</p>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <span>Fase 1 — Setup de Canales + Kit Visual MVP</span>
+            <span class="badge ok">₡150.000 único</span>
+          </summary>
+          <div class="cols">
+            <div class="mini">
+              <h5>Entregables incluidos</h5>
+              <ul class="clean">
+                <li><b>Configuración de Redes:</b> Facebook, Instagram, TikTok (bios, enlaces, seguridad).</li>
+                <li><b>Kit Visual Mínimo:</b> Paleta provisional, tipografía, estilo visual.</li>
+                <li><b>10 Plantillas Base:</b> Para posts y stories (reutilizables).</li>
+                <li><b>Calendario de Arranque:</b> Primeros 7-14 días definidos.</li>
+              </ul>
+            </div>
+            <div class="mini">
+              <h5>Exclusiones</h5>
+              <p>No incluye un branding formal completo (manual de marca exhaustivo). Es un kit operativo para iniciar rápido.</p>
+            </div>
+          </div>
+        </details>
+
+        <details open>
+          <summary>
+            <span>Fase 2 — Operación Semanal (Retainer)</span>
+            <span class="badge ok">₡100.000/semana</span>
+          </summary>
+          <div class="cols">
+            <div class="mini">
+              <h5>Entregables incluidos (alcance sugerido)</h5>
+              <ul class="clean">
+                <li><b>2 posts por semana</b>.</li>
+                <li><b>4–6 historias por semana</b>.</li>
+                <li><b>1 TikTok/Reel por semana</b> (edición ligera).</li>
+                <li>Programación/publicación + monitoreo básico.</li>
+                <li>Reunión semanal (20–30 min) + reporte corto.</li>
+              </ul>
+            </div>
+            <div class="mini">
+              <h5>Límites creativos (para mantener el precio)</h5>
+              <ul class="clean">
+                <li>Edición de fotos “únicas”: <b>máx. 2 por semana</b>.</li>
+                <li>Adaptaciones en templates: <b>hasta 6 por semana</b>.</li>
+                <li>1 ronda de cambios por pieza (extra: servicio adicional).</li>
+                <li>Contenido “viral”, guion avanzado, producciones complejas: <b>no incluido</b>.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="note">
+            Nota: “Publicar en grupos” aplica únicamente si el cliente autoriza los grupos, define reglas de publicación
+            y acepta un enfoque no intrusivo para evitar sanciones o percepción de spam.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            <span>Etapa B — Adquisición con Google Ads (Add-on)</span>
+            <span class="badge warn">₡100.000/mes</span>
+          </summary>
+          <div class="cols">
+            <div class="mini">
+              <h5>Incluye (gestión con alcance definido)</h5>
+              <ul class="clean">
+                <li>Hasta <b>1–2 campañas activas</b> (Search), según necesidad.</li>
+                <li>Optimización <b>semanal</b> (términos, negativas básicas, pujas, pausas).</li>
+                <li>Variaciones de anuncios al mes (p. ej. 6–10) según servicios priorizados.</li>
+                <li>Reporte mensual (clics, CTR, CPC, leads si hay tracking).</li>
+              </ul>
+            </div>
+            <div class="mini">
+              <h5>No incluye (para evitar alcance infinito)</h5>
+              <ul class="clean">
+                <li>Presupuesto publicitario (lo paga el cliente).</li>
+                <li>Landing pages y rediseño web.</li>
+                <li>Implementación avanzada de medición (GA4/GTM/conversiones complejas) — se cotiza aparte.</li>
+                <li>Más campañas/estructuras extensas (se cotiza como extra o plan superior).</li>
+              </ul>
+            </div>
+          </div>
+          <p class="note">
+            Recomendación: si el cliente no cuenta con medición (conversiones/leads), se sugiere un “setup de medición”
+            como servicio adicional para atribución real (CPL/CPA).
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            <span>Etapa C — Sitio web (Proyecto)</span>
+            <span class="badge warn">₡250.000 único · 10 semanas</span>
+          </summary>
+          <div class="cols">
+            <div class="mini">
+              <h5>Incluye (web sencilla)</h5>
+              <ul class="clean">
+                <li>Web tipo landing (Inicio + Servicios + Contacto/WhatsApp) o equivalente.</li>
+                <li>Estructura optimizada para conversión (CTA, formulario o WhatsApp, copy claro).</li>
+                <li>Iteraciones por hitos con aprobaciones (ver cronograma).</li>
+              </ul>
+            </div>
+            <div class="mini">
+              <h5>No incluye</h5>
+              <ul class="clean">
+                <li>Mantenimiento posterior (se cotiza por separado).</li>
+                <li>Hosting/dominio/correos corporativos (los paga el cliente).</li>
+                <li>SEO avanzado, blog, multi-idioma, e-commerce (servicios extra).</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card full" style="margin-top:12px">
+            <div class="card-glow"></div>
+            <h4>
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--accent);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              Cronograma sugerido (10 semanas)
+            </h4>
+            <p class="muted">
+              Cronograma basado en ciclos de entrega y aprobación. Si el cliente no aprueba a tiempo,
+              el cronograma se ajusta sin penalidad para el equipo.
+            </p>
+            
+            <div class="timeline">
+              <div class="timeline-item" style="animation-delay: 0.1s">
+                <div class="timeline-title">Semanas 1–2: Descubrimiento</div>
+                <div class="timeline-desc">Levantamiento de requisitos, estructura (sitemap), wireframe y copy base.</div>
+              </div>
+              <div class="timeline-item" style="animation-delay: 0.2s">
+                <div class="timeline-title">Semanas 3–4: Diseño</div>
+                <div class="timeline-desc">Diseño visual (MVP), prototipo navegable y primer ciclo de revisión.</div>
+              </div>
+              <div class="timeline-item active" style="animation-delay: 0.3s">
+                <div class="timeline-title">Semanas 5–6: Desarrollo</div>
+                <div class="timeline-desc">Construcción y maquetación, integración de formularios/WhatsApp, ajustes de contenido.</div>
+              </div>
+              <div class="timeline-item" style="animation-delay: 0.4s">
+                <div class="timeline-title">Semanas 7–8: Pruebas</div>
+                <div class="timeline-desc">QA, pruebas (móvil/desktop), correcciones y preparación para publicación.</div>
+              </div>
+              <div class="timeline-item" style="animation-delay: 0.5s">
+                <div class="timeline-title">Semanas 9–10: Lanzamiento</div>
+                <div class="timeline-desc">Publicación (con hosting/dominio listos), validación final y handover.</div>
+              </div>
+            </div>
+            
+            <div class="progress-container">
+              <div class="progress-bar" style="width: 50%"></div>
+            </div>
+            <p class="note">Progreso estimado: 50% del proyecto en semana 5.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Services & Pricing -->
+    <section class="section" id="precios">
+      <h3>
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--ok);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+          <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+        3) Servicios incluidos y precios
+      </h3>
+      <p>Los precios base se mantienen; el crecimiento se realiza por módulos (servicios extra) según necesidad real.</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-glow"></div>
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h4>Fases Iniciales (Puesta en marcha)</h4>
+          <p>Fase 0 (Foundations) + Fase 1 (Setup de canales y kit visual).</p>
+          <div class="price">
+            <span class="tag">
+              <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              Pago único inicial
+            </span>
+            <span class="amount">₡250.000 total</span>
+          </div>
+          <p class="note">Se pagan antes de iniciar la operación semanal.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-glow"></div>
+          <span class="ribbon">Popular</span>
+          <div class="icon warn">
+            <svg viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>
+          </div>
+          <h4>Fase 2: Retainer Semanal</h4>
+          <p>Operación + contenido + comunidad con alcance definido.</p>
+          <div class="price">
+            <span class="tag">
+              <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Pago semanal (adelantado)
+            </span>
+            <span class="amount">₡100.000 / semana</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-glow"></div>
+          <div class="icon cool">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <h4>Add-on: Google Ads</h4>
+          <p>Gestión mensual con optimización semanal y reporte.</p>
+          <div class="price">
+            <span class="tag">Pago mensual (adelantado)</span>
+            <span class="amount">₡100.000 / mes</span>
+          </div>
+        </div>
+
+        <div class="card full">
+          <div class="card-glow"></div>
+          <div class="icon" style="background: linear-gradient(135deg, #ff9a7a, #ffd37a)">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h4>Proyecto Web (Landing sencilla)</h4>
+          <p>
+            Web como proyecto independiente, con cronograma de 10 semanas por iteraciones y aprobaciones.
+            No incluye mantenimiento ni costos de hosting/dominio.
+          </p>
+          <div class="price">
+            <span class="tag">
+              <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              Proyecto
+            </span>
+            <span class="amount">₡250.000 (único)</span>
+          </div>
+          <p class="note">
+            Forma de pago sugerida: 50% inicio + 50% contra entrega. (Puede ajustarse a 40/40/20 por hitos.)
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Extra services -->
+    <section class="section" id="extras">
+      <h3>
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--accent2);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+          <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        4) Servicios extra (para escalar progresivamente)
+      </h3>
+      <p>Estos servicios se activan cuando el cliente desea aumentar alcance, calidad, velocidad o performance.</p>
+
+      <!-- Process Steps -->
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-number active">1</div>
+          <div class="step-title">Solicitar</div>
+          <div class="step-desc">Defina qué necesita</div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <div class="step-title">Cotizar</div>
+          <div class="step-desc">Reciba propuesta</div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <div class="step-title">Aprobar</div>
+          <div class="step-desc">Confirme el servicio</div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <div class="step-title">Entregar</div>
+          <div class="step-desc">Reciba resultados</div>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-glow"></div>
+          <span class="premium-badge">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Más vendido
+          </span>
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <h4>Más contenido (volumen adicional)</h4>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              +1 post por semana: <b>₡10.000</b>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              +2 posts por semana: <b>₡15.000</b>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              +10 historias por semana: <b>₡20.000</b>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Reel adicional (edición ligera): <b>₡18.000 – ₡35.000</b>
+            </div>
+          </div>
+          <p class="note">Los precios asumen uso de templates. Si requiere producción avanzada, se cotiza aparte.</p>
+        </div>
+
+        <div class="card">
+          <h4>Producción “viral” / avanzada</h4>
+          <ul class="clean">
+            <li>Guion + planificación + estructura creativa: <b>a cotizar</b></li>
+            <li>Edición avanzada (transiciones, motion, subtítulos pro): <b>a cotizar</b></li>
+            <li>Sesión de grabación (presencial): <b>a cotizar</b> (viáticos aparte)</li>
+          </ul>
+          <p class="note">Recomendado para campañas puntuales, lanzamientos o estacionalidad.</p>
+        </div>
+
+        <div class="card">
+          <h4>Meta Ads (Facebook/Instagram)</h4>
+          <ul class="clean">
+            <li>Setup de campañas: <b>a cotizar</b> (según complejidad)</li>
+            <li>Gestión mensual: <b>a cotizar</b> (según # campañas / creativos)</li>
+          </ul>
+          <p class="note">No incluye presupuesto publicitario. Se define el alcance (campañas, audiencias, optimizaciones).</p>
+        </div>
+
+        <div class="card">
+          <h4>Kit visual mínimo extendido (sin branding formal)</h4>
+          <ul class="clean">
+            <li>Plantillas adicionales + guía visual ampliada: <b>a cotizar</b></li>
+            <li>Guía de tono + mensajes + disclaimers refinados: <b>a cotizar</b></li>
+          </ul>
+          <p class="note">Ideal si el cliente no invertirá en branding, pero requiere consistencia superior.</p>
+        </div>
+
+        <div class="card full">
+          <h4>Medición y atribución (opcional, recomendado para Ads)</h4>
+          <p>
+            Si el objetivo es performance (leads), se recomienda habilitar medición (conversiones) para medir costo por lead (CPL).
+            Este trabajo suele implicar GA4/GTM, eventos y validación de formularios/WhatsApp.
+          </p>
+          <div class="price">
+            <span class="tag">Servicio extra</span>
+            <span class="amount">A cotizar</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Governance / SLAs -->
+    <section class="section" id="condiciones">
+      <h3>
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--cool);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        5) Condiciones de servicio (alcance, aprobaciones y SLA)
+      </h3>
+      <p>Estas condiciones protegen la calidad del servicio y evitan alcances ilimitados. Transparencia total para una relación de confianza.</p>
+
+      <div class="benefit-highlight" style="margin-bottom: 20px;">
+        <h4 style="margin: 0 0 16px; font-size: 15px;">
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--accent);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          Compromisos de nivel de servicio (SLA)
+        </h4>
+        <div class="benefit-grid">
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="benefit-text">
+              <strong>Respuesta en 6 horas hábiles</strong>
+              <span>Para mensajes y consultas de comunidad</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="benefit-text">
+              <strong>Entrega de contenido semanal</strong>
+              <span>Según calendario acordado previamente</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="benefit-text">
+              <strong>Reunión semanal de 30 min</strong>
+              <span>Para alinear prioridades y revisar resultados</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="benefit-text">
+              <strong>Reporte mensual de métricas</strong>
+              <span>Alcance, engagement y crecimiento</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-glow"></div>
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h4>Horario y tiempos de respuesta</h4>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Atención de comunidad: <b>L–V (horario laboral)</b>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Tiempo de respuesta: <b>6 horas hábiles máx.</b>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Escalamiento técnico al cliente para temas contables
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Emergencias fuera de horario: <b>a cotizar</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-glow"></div>
+          <div class="icon warn">
+            <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <h4>Aprobaciones y revisiones</h4>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Flujo de aprobación: <b>1 responsable</b> designado
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Revisiones incluidas: <b>1 ronda</b> por pieza
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Tiempo de aprobación: <b>48 horas máx.</b>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Rondas adicionales: <b>₡5.000 c/u</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="card full">
+          <div class="card-glow"></div>
+          <div class="icon cool">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <h4>Exclusiones importantes (transparencia total)</h4>
+          <div class="feature-list" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+            <div class="feature-item">
+              <div class="feature-icon" style="background: rgba(255,107,107,.15);"><svg viewBox="0 0 24 24" style="stroke: #ff6b6b;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+              No garantizamos ventas sin medición y presupuesto
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon" style="background: rgba(255,107,107,.15);"><svg viewBox="0 0 24 24" style="stroke: #ff6b6b;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+              No incluye costos de pauta (Google/Meta)
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon" style="background: rgba(255,107,107,.15);"><svg viewBox="0 0 24 24" style="stroke: #ff6b6b;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+              No incluye hosting, dominio ni correos
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon" style="background: rgba(255,107,107,.15);"><svg viewBox="0 0 24 24" style="stroke: #ff6b6b;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+              No incluye branding formal completo
+            </div>
+          </div>
+          <div class="guarantee-box" style="margin-top: 16px;">
+            <div class="guarantee-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="guarantee-content">
+              <h4>Nota legal importante</h4>
+              <p>En contabilidad es crítico mantener comunicación responsable: el contenido es informativo y no reemplaza asesoría personalizada.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team & responsibilities -->
+    <section class="section" id="equipo">
+      <h3>
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--accent);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        6) Equipo de trabajo (roles y responsabilidad)
+      </h3>
+      <p>Modelo de 3 roles especializados para asegurar ejecución diaria impecable, consistencia visual profesional y dirección estratégica orientada a resultados.</p>
+
+      <!-- Team Stats -->
+      <div class="roi-box" style="margin-bottom: 20px;">
+        <div class="roi-header">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <h4>Capacidad del equipo dedicado</h4>
+        </div>
+        <div class="roi-metrics">
+          <div class="roi-metric">
+            <div class="roi-value">3</div>
+            <div class="roi-label">Roles especializados</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-value">L-V</div>
+            <div class="roi-label">Días de cobertura</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-value">∞</div>
+            <div class="roi-label">Compromiso con calidad</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-glow"></div>
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h4>Community Manager (día a día)</h4>
+          <p class="muted" style="font-size: 12px; margin-bottom: 12px;">Primera línea de contacto con su audiencia</p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Atención de comunidad y moderación proactiva
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Programación y publicación en horarios óptimos
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Monitoreo de menciones y conversaciones
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Escalamiento inteligente de consultas técnicas
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-glow"></div>
+          <div class="icon warn">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <h4>Diseño/Edición Creativa</h4>
+          <p class="muted" style="font-size: 12px; margin-bottom: 12px;">Contenido visual que conecta con su audiencia</p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Producción de piezas según templates de marca
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Adaptación para cada canal y formato
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Edición de reels y videos cortos
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Gestión de cambios dentro del límite acordado
+            </div>
+          </div>
+        </div>
+
+        <div class="card full">
+          <div class="card-glow"></div>
+          <span class="ribbon">Liderazgo</span>
+          <div class="icon cool">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          </div>
+          <h4>Estrategia y Coordinación Senior</h4>
+          <p class="muted" style="font-size: 12px; margin-bottom: 12px;">Visión estratégica para maximizar el impacto de cada acción</p>
+          <div class="feature-list" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Planificación semanal/mensual estratégica
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Alineación con objetivos comerciales
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Control de calidad de copys y compliance
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Reportes con análisis y recomendaciones
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Optimización continua basada en datos
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Reuniones de alineación con el cliente
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next Steps -->
+    <section class="section" id="proximos-pasos">
+      <h3>
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--accent2);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        Próximos pasos para comenzar
+      </h3>
+      <p>Una vez aceptada la propuesta, estos son los pasos para iniciar el servicio de manera ágil y ordenada.</p>
+
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-number active">1</div>
+          <div class="step-title">Aceptación</div>
+          <div class="step-desc">Confirmar propuesta vía correo o WhatsApp</div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <div class="step-title">Pago Inicial</div>
+          <div class="step-desc">Fase 0 + Fase 1 (₡250.000)</div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <div class="step-title">Onboarding</div>
+          <div class="step-desc">Accesos a redes y briefing inicial</div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <div class="step-title">Lanzamiento</div>
+          <div class="step-desc">Inicio de operación semanal</div>
+        </div>
+      </div>
+
+      <div class="benefit-highlight">
+        <h4 style="margin: 0 0 16px; font-size: 15px;">
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--accent);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+          </svg>
+          Información requerida para comenzar
+        </h4>
+        <div class="benefit-grid">
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="benefit-text">
+              <strong>Accesos a redes sociales</strong>
+              <span>Facebook, Instagram, TikTok (admin)</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="benefit-text">
+              <strong>Responsable de aprobación</strong>
+              <span>Nombre, teléfono y correo</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="benefit-text">
+              <strong>Material de referencia</strong>
+              <span>Logo, colores, fotos del equipo (si hay)</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="benefit-text">
+              <strong>Servicios prioritarios</strong>
+              <span>Lista de servicios a promocionar primero</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Acceptance -->
+    <section class="footer" id="aceptacion">
+      <div class="cta">
+        <div>
+          <h3>
+            <svg viewBox="0 0 24 24" style="width:24px;height:24px;stroke:var(--ok);stroke-width:2;fill:none;vertical-align:middle;margin-right:8px">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            7) Aceptación e inicio
+          </h3>
+          <p>Para iniciar, confirmar alcance, responsables de aprobación y accesos a plataformas.</p>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="mailto:contacto@jcanalytics.com">
+            <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+            Aceptar por correo
+          </a>
+          <a class="btn" href="https://wa.me/50600000000" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+            Coordinar por WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Investment Summary -->
+      <div class="roi-box" style="margin: 20px 0;">
+        <div class="roi-header">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <h4>Resumen de inversión total</h4>
+        </div>
+        <div class="roi-metrics">
+          <div class="roi-metric">
+            <div class="roi-value">₡250K</div>
+            <div class="roi-label">Pago inicial (Fase 0+1)</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-value">₡100K</div>
+            <div class="roi-label">Retainer semanal</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-value">₡400K</div>
+            <div class="roi-label">Inversión primer mes*</div>
+          </div>
+        </div>
+        <p class="note" style="text-align: center; margin-top: 12px;">*Incluye Fase 0, Fase 1 y aproximadamente 4 semanas de operación.</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Testimonial Section -->
+      <div class="testimonial">
+        <p class="testimonial-text">
+          "Un servicio profesional que realmente entiende las necesidades de una firma contable. 
+          La consistencia en las publicaciones y la calidad del contenido han mejorado significativamente 
+          nuestra presencia digital y la captación de nuevos clientes."
+        </p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">CR</div>
+          <div class="testimonial-info">
+            <strong>Cliente Referencial</strong>
+            <span>Firma de Asesoría Contable</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="grid2">
+        <div class="mini">
+          <h5>
+            <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:var(--accent);stroke-width:2;fill:none;vertical-align:middle;margin-right:6px">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            Datos del proveedor
+          </h5>
+          <div class="kv"><span>Empresa</span><b>JC Analytics</b></div>
+          <div class="kv"><span>Representante</span><b>Jeyrell Tardencilla Freckleton</b></div>
+          <div class="kv"><span>Cargo</span><b>Analista Senior</b></div>
+          <div class="kv"><span>Correo</span><b>contacto@jcanalytics.com</b></div>
+        </div>
+        <div class="mini">
+          <h5>
+            <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:var(--accent2);stroke-width:2;fill:none;vertical-align:middle;margin-right:6px">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            Datos del cliente
+          </h5>
+          <div class="kv"><span>Empresa</span><b>FinaTec Contable</b></div>
+          <div class="kv"><span>Responsable</span><b>Leonardo Reynas</b></div>
+          <div class="kv"><span>Giro</span><b>Asesoría contable PYME</b></div>
+          <div class="kv"><span>Firma</span><b>________________________</b></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="guarantee-box">
+        <div class="guarantee-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <div class="guarantee-content">
+          <h4>Garantía de satisfacción</h4>
+          <p>Si después de las primeras 2 semanas de operación no está satisfecho con el servicio, puede cancelar sin penalidad. Solo paga el trabajo realizado.</p>
+        </div>
+      </div>
+
+      <div class="smallprint" style="margin-top: 16px;">
+        <b>Condición de pago:</b> servicio base semanal y add-on mensual se pagan por adelantado. Proyecto web: 50% inicio / 50% entrega (o por hitos).
+        <br />
+        <b>Validez de la propuesta:</b> 15 días a partir de la fecha de emisión (07/01/2026).
+        <br />
+        <b>Formas de pago:</b> Transferencia bancaria, SINPE Móvil.
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Pequeña mejora UX: cerrar otros details al abrir uno (tipo acordeón).
+    (function () {
+      const details = Array.from(document.querySelectorAll('details'));
+      details.forEach(d => {
+        d.addEventListener('toggle', () => {
+          if (!d.open) return;
+          details.forEach(other => {
+            if (other !== d) other.open = false;
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
